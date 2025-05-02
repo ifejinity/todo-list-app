@@ -4,4 +4,6 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    return render(request, 'to_do_list/index.html', {'message': 'This is your first template!'})
+    return render(request, 'to_do_list/index.html', {
+        'message': 'This is your first template!'
+    })
