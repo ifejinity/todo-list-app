@@ -1,5 +1,41 @@
 {% extends "to_do_list/base.html" %}
 
 {% block content %}
-    <h2>{{ message }}</h2>
+    <div popover id="addTask" class="shadow-lg p-6 w-full max-w-md bg-white rounded-lg border border-gray-200">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Add New Task</h2>
+        <form action="{% url 'create_todo' %}" method="post" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="task" class="block text-sm font-medium text-gray-700">Task Name:</label>
+                <input id="task" type="text" name="task" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <input type="submit" value="Create Task" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+            </div>
+        </form>
+    </div>
+    
+    <div class="flex flex-col w-full px-30 py-10">
+        <button popovertarget="addTask" class="p-[8px_16px] bg-blue-500 rounded-[6px] text-slate-100 w-fit self-end">Add Task</button>
+        <table class="w-full max-w-[600px] bg-white rounded-lg overflow-hidden">
+            <thead>
+                <tr>
+                    <th class="py-3 px-6 text-left">ID</th>
+                    <th class="py-3 px-6 text-left">Task Name</th>
+                    <th class="py-3 px-6 text-left">Completed</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    <tr>
+                        <td class="py-3 px-6">{{todo.id}}</td>
+                        <td class="py-3 px-6">{{todo.task|default:"-"}}</td>
+                        <td class="py-3 px-6">{{todo.completed}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
