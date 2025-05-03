@@ -22,3 +22,10 @@ def delete_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
     todo.delete()
     return redirect('index')
+
+def update_todo(request, id):
+    task = request.POST.get('task')
+    todo = get_object_or_404(Todo, id=id)
+    todo.task = task
+    todo.save()
+    return redirect('index')
