@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Todo
 import uuid
 # Create your views here.
@@ -16,4 +16,9 @@ def create_todo(request):
         task=task,
         completed=False
     )
+    return redirect('index')
+
+def delete_todo(request, id):
+    todo = get_object_or_404(Todo, id=id)
+    todo.delete()
     return redirect('index')
